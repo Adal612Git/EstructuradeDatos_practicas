@@ -1,11 +1,12 @@
 const express = require('express');
-const connectDB = require('./config/database');
+const connectDB = require('./config/db');
 
 const app = express();
 connectDB();
 
 app.use(express.json());
-app.use('/api', require('./routes'));
 
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/tasks', require('./routes/taskRoutes'));
+
+module.exports = app;
